@@ -1,8 +1,8 @@
 *,
-*::after,
-*::before {
-  padding: 0;
+*::before,
+*::after {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -12,37 +12,64 @@
 
 body {
   display: flex;
-  align-items: flex-end;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
-  background-color: var(--dark-color);
+  background: var(--dark-color);
   overflow: hidden;
-  perspective: 1000px;
 }
 
+/* BACKGROUND */
 .night {
   position: fixed;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 100%;
-  filter: blur(0.1vmin);
-  background-image: radial-gradient(ellipse at top, transparent 0%, var(--dark-color)), 
-  radial-gradient(ellipse at bottom, var(--dark-color), rgba(145, 233, 255, 0.2)), 
-  repeating-linear-gradient(220deg, rgb(0, 0, 0) 0px, rgb(0, 0, 0) 19px, transparent 19px, transparent 22px),
-  repeating-linear-gradient(189deg, rgb(0, 0, 0) 0px, rgb(0, 0, 0) 19px, transparent 19px, transparent 22px),
-  repeating-linear-gradient(148deg, rgb(0, 0, 0) 0px, rgb(0, 0, 0) 19px, transparent 19px, transparent 22px),
-  linear-gradient(90deg, rgb(21, 255, 0), rgb(240, 240, 240));
+  inset: 0;
+  background: radial-gradient(circle at top, transparent, black),
+              linear-gradient(90deg, #0f0, #111);
+  z-index: 0;
 }
 
+/* FLOWERS CONTAINER */
 .flowers {
   position: relative;
+  z-index: 10;
   transform: scale(0.9);
 }
 
-/* ❌ REMOVED THIS (it was freezing EVERYTHING)
-.container * {
-  animation-play-state: paused !important;
+/* BASIC FLOWER STRUCTURE */
+.flower {
+  position: absolute;
+  bottom: 0;
+  width: 20px;
+  height: 200px;
+  background: linear-gradient(to top, #064600, #1aaa15);
+  transform-origin: bottom center;
 }
-*/
+
+/* POSITIONS */
+.flower--1 { left: -80px; }
+.flower--2 { left: 0px; }
+.flower--3 { left: 80px; }
+
+/* SIMPLE BLOOM EFFECT */
+.flower::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: yellow;
+  border-radius: 50%;
+  box-shadow: 0 0 20px yellow;
+  animation: bloom 3s infinite ease-in-out;
+}
+
+@keyframes bloom {
+  0%, 100% {
+    transform: translateX(-50%) scale(0.8);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.2);
+  }
+}
