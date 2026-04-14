@@ -1,75 +1,65 @@
-*,
-*::before,
-*::after {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-:root {
-  --dark-color: #000;
-}
-
 body {
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: var(--dark-color);
+  align-items: flex-end;
+  background: black;
   overflow: hidden;
 }
 
-/* BACKGROUND */
+/* NIGHT BACKGROUND */
 .night {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at top, transparent, black),
-              linear-gradient(90deg, #0f0, #111);
+  background: radial-gradient(circle at top, #111, black);
   z-index: 0;
 }
 
-/* FLOWERS CONTAINER */
-.flowers {
+/* SCENE */
+.scene {
   position: relative;
+  display: flex;
+  gap: 60px;
   z-index: 10;
-  transform: scale(0.9);
 }
 
-/* BASIC FLOWER STRUCTURE */
+/* FLOWERS */
 .flower {
-  position: absolute;
-  bottom: 0;
   width: 20px;
-  height: 200px;
-  background: linear-gradient(to top, #064600, #1aaa15);
-  transform-origin: bottom center;
+  height: 180px;
+  background: linear-gradient(to top, #0a5c0a, #1fff1f);
+  position: relative;
+  transform-origin: bottom;
+  animation: sway 3s infinite ease-in-out;
 }
 
-/* POSITIONS */
-.flower--1 { left: -80px; }
-.flower--2 { left: 0px; }
-.flower--3 { left: 80px; }
-
-/* SIMPLE BLOOM EFFECT */
+/* FLOWER HEAD */
 .flower::before {
   content: "";
   position: absolute;
-  top: -40px;
+  top: -50px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   background: yellow;
   border-radius: 50%;
   box-shadow: 0 0 20px yellow;
-  animation: bloom 3s infinite ease-in-out;
 }
 
-@keyframes bloom {
-  0%, 100% {
-    transform: translateX(-50%) scale(0.8);
-  }
-  50% {
-    transform: translateX(-50%) scale(1.2);
-  }
+/* DIFFERENT POSITIONS */
+.f1 { animation-delay: 0s; }
+.f2 { animation-delay: 0.5s; }
+.f3 { animation-delay: 1s; }
+
+/* ANIMATION */
+@keyframes sway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
 }
